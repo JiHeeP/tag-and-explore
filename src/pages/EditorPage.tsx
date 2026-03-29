@@ -55,7 +55,7 @@ export default function EditorPage() {
     mutationFn: async (newHotspots: Hotspot[]) => {
       const { error } = await supabase
         .from("projects")
-        .update({ hotspots: newHotspots as unknown as Record<string, unknown>[], updated_at: new Date().toISOString() })
+        .update({ hotspots: JSON.parse(JSON.stringify(newHotspots)), updated_at: new Date().toISOString() })
         .eq("id", id!);
       if (error) throw error;
     },
